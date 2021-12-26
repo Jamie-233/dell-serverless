@@ -1,5 +1,7 @@
+import 'normalize'
+
 function App() {
-  return <div className="App"></div>
+  return <div>Hello</div>
 }
 
 export default App
