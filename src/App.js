@@ -1,7 +1,8 @@
-import 'normalize'
+import Home from './container/Home'
+import 'normalize.css'
 
 function App() {
-  return <div>Hello</div>
+  return <Home />
 }
 
 export default App
