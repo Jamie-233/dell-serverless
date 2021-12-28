@@ -35,15 +35,11 @@ const Home = () => {
         </Sider>
         <Layout>
             <Header className={styles.header}>
-                {
-                    collapsed
-                    ? <span onClick={toggleCollapsed} className='iconfont'>
-                        &#xe62c;
-                    </span>
-                    : <span onClick={toggleCollapsed} className='iconfont'>
-                        &#xe629;
-                    </span>
-                }
+                <span
+                    className='iconfont'
+                    onClick={toggleCollapsed}
+                    dangerouslySetInnerHTML={{ __html: collapsed ? '&#xe62c;': '&#xe629;'  }}
+                />
             </Header>
             <Content className={styles.content}>
                 Content
