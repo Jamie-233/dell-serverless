@@ -4,7 +4,7 @@ import courses from './courses.jpeg';
 
 const Banner = () => {
     return (
-        <div className={style.courses}>
+        <div className='wraper'>
             <ul className={style.list}>
                 <li className={style.item}>
                     <img className={style.img} src={courses} alt="courses img"></img>

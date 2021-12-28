@@ -1,20 +1,18 @@
 .footer {
-    width: 1280px;
-    height: 60px;
-    margin: 10px auto 10px auto;
-    background: #fff;
+  height: 60px;
+  background: #fff;
 
-    .list {
-        list-style-type: none;
-        
-        .item {
-            line-height: 60px;
-            text-decoration: none;
+  .list {
+    list-style-type: none;
 
-            .link {
-                color:cornflowerblue;
-                text-decoration: none;
-            }
-        }
+    .item {
+      line-height: 60px;
+      text-decoration: none;
+
+      .link {
+        color: cornflowerblue;
+        text-decoration: none;
+      }
     }
+  }
 }

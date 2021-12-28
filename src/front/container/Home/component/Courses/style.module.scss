@@ -1,51 +1,43 @@
-.courses {
-  position: relative;
-  width: 1280px;
-  margin: 15px auto 0 auto;
-  margin-top: 10px;
-  background: #fff;
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0 0 10px 0;
+  list-style-type: none;
 
-  .list {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0 0 10px 0;
-    list-style-type: none;
+  .item {
+    width: 20%;
+    margin-top: 10px;
 
-    .item {
-      width: 20%;
-      margin-top: 10px;
+    .img {
+      display: block;
+      width: 240px;
+      height: 180px;
+      margin: 0 auto;
+    }
 
-      .img {
-        display: block;
-        width: 240px;
-        height: 180px;
-        margin: 0 auto;
-      }
+    .title {
+      margin: 0;
+      line-height: 32px;
+      font-size: 16px;
+      font-weight: normal;
+      padding: 0 10px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
 
-      .title {
-        margin: 0;
-        line-height: 32px;
-        font-size: 16px;
-        font-weight: normal;
-        padding: 0 10px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-
-      .desc {
-        margin: 0;
-        line-height: 24px;
-        font-size: 14px;
-        font-weight: normal;
-        color: #777;
-        padding: 0 10px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
-      }
+    .desc {
+      margin: 0;
+      line-height: 24px;
+      font-size: 14px;
+      font-weight: normal;
+      color: #777;
+      padding: 0 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 4;
     }
   }
 }

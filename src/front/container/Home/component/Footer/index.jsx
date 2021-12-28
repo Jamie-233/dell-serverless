@@ -3,13 +3,15 @@ import style from './style.module.scss';
 
 const Footer = () => {
     return (
-        <div className={style.footer}>
-            <ul className={style.list}>
-                <li className={style.item}>
-                    <a className={style.link} href="/admin.html" target="_blank">Dashboard</a>
-                </li>
-            </ul>
-        </div>
+       <div className='wraper'>
+            <div className={style.footer}>
+                <ul className={style.list}>
+                    <li className={style.item}>
+                        <a className={style.link} href="/admin.html" target="_blank">Dashboard</a>
+                    </li>
+                </ul>
+            </div>
+       </div>
     )
 }
 

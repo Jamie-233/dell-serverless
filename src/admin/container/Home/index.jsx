@@ -38,10 +38,10 @@ const Home = () => {
                 {
                     collapsed
                     ? <span onClick={toggleCollapsed} className='iconfont'>
-                        &#xe629;
+                        &#xe62c;
                     </span>
                     : <span onClick={toggleCollapsed} className='iconfont'>
-                        &#xe62c;
+                        &#xe629;
                     </span>
                 }
             </Header>
