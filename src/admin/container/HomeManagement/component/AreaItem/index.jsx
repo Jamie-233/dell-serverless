@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { Button, Modal, Select } from 'antd';
 import styles from './style.module.scss';
 
@@ -10,6 +10,11 @@ const PageSetting = (props, ref) => {
     const [temp, setTemp] = useState(item);
     const [schema, setSchema] = useState(item);
     const [visible, setVisible] = useState(false);
+
+    useEffect(() => {
+        setSchema(item);
+        setTemp(item);
+    }, [item]);
 
     const showModal = () => {
         setVisible(true);
@@ -31,10 +36,7 @@ const PageSetting = (props, ref) => {
     };
 
     useImperativeHandle(ref, () => ({
-        getSchema: () => schema,
-        resetSchema: () => {
-            setSchema(item);
-        }
+        getSchema: () => schema
     }));
 
     return (

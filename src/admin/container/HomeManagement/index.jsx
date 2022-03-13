@@ -7,7 +7,7 @@ import styles from './style.module.scss';
 
 const { Header, Sider, Content } = Layout;
 
-const schema = parseJsonByString(window.localStorage.schema, {});
+const initialSchema = parseJsonByString(window.localStorage.schema, {});
 
 const useCollapsed = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -24,8 +24,10 @@ const useCollapsed = () => {
 const HomeManagement = () => {
     const { collapsed, toggleCollapsed } = useCollapsed();
 
-    // const pageSettingRef = useRef();
     const areaListRef = useRef();
+    // const pageSettingRef = useRef();
+
+    const [schema, setSchema] = useState(initialSchema);
 
     const handleHomePageRedirect = () => {
         window.location = '/';
@@ -39,8 +41,8 @@ const HomeManagement = () => {
     };
 
     const handleResetBtnClick = () => {
-        const { resetSchema } = areaListRef.current;
-        resetSchema();
+        const newSchema = parseJsonByString(window.localStorage.schema, {});
+        setSchema(newSchema);
     };
 
     return (
