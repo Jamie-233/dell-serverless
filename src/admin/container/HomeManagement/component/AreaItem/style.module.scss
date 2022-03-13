@@ -10,6 +10,7 @@
     &:last-of-type {
         margin-bottom: 20px;
     }
+
     .content {
         flex: 1;
     }
@@ -17,9 +18,5 @@
     .delete {
         width: 80px;
         text-align: right;
-    }
-
-    .selector {
-        width: 100%;
     }
 }
