@@ -28,9 +28,10 @@ const useStore = (index) => {
 const AreaItem = (props) => {
     const { index } = props;
 
+    const { pageChild, removePageChild, changePageChild } = useStore(index);
+    
     const [visible, setVisible] = useState(false);
     const [tempPageChild, setTempPageChild] = useState(pageChild);
-    const { pageChild, removePageChild, changePageChild } = useStore(index);
 
     const showModal = () => {
         setVisible(true);

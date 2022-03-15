@@ -19,7 +19,8 @@ const reducer = (state = defaultState, action) => produce(state, (draft) => {
             break;
         case ADD_PAGE_CHILDREN:
             draft.schema.children.push(action.value);
-        case CHANGE_PAGE_CHILD:
+            break;
+            case CHANGE_PAGE_CHILD:
             draft.schema.children.splice(action.index, 1, action.value);
             break;
         case DELETE_PAGE_CHILD:
