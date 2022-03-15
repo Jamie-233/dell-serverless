@@ -1,0 +1,12 @@
+.row {
+    display: flex;
+    margin-top: 16px;
+
+    .label {
+        width: 70px;
+    }
+
+    .content {
+        flex: 1;
+    }
+}
