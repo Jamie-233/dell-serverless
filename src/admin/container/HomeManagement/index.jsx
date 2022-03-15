@@ -1,13 +1,13 @@
-import React, { useRef, useState } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Layout, Menu } from 'antd';
 import AreaList from './component/AreaList';
 // import PageSetting from './component/PageSetting';
 import { parseJsonByString } from '../../../common/utils';
+import { getChangeSchemaAction } from './store/action';
 import styles from './style.module.scss';
 
 const { Header, Sider, Content } = Layout;
-
-const initialSchema = parseJsonByString(window.localStorage.schema, {});
 
 const useCollapsed = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -21,28 +21,33 @@ const useCollapsed = () => {
     };
 };
 
+const useStore = () => {
+    const dispatch = useDispatch();
+    const schema = useSelector((state) => state.homeManageMent.schema);
+
+    const changeSchema = (schema) => {
+        dispatch(getChangeSchemaAction(schema));
+    }
+
+    return {
+        schema,
+        changeSchema
+    }
+};
+
 const HomeManagement = () => {
+    const { schema , changeSchema }  = useStore();
     const { collapsed, toggleCollapsed } = useCollapsed();
 
-    const areaListRef = useRef();
-    // const pageSettingRef = useRef();
-
-    const [schema, setSchema] = useState(initialSchema);
-
-    const handleHomePageRedirect = () => {
-        window.location = '/';
-    };
-
     const handleSaveBtnClick = () => {
-        const { getSchema } = areaListRef.current;
-        const schema = { name: 'Page', attributes: {}, children: getSchema() };
-
         window.localStorage.schema = JSON.stringify(schema);
     };
 
+    const handleHomePageRedirect = () => { window.location = '/' };
+
     const handleResetBtnClick = () => {
-        const newSchema = parseJsonByString(window.localStorage.schema, {});
-        setSchema(newSchema);
+        const schema = parseJsonByString(window.localStorage.schema, {});
+        changeSchema(schema);
     };
 
     return (
@@ -82,11 +87,7 @@ const HomeManagement = () => {
                     />
                 </Header>
                 <Content className={styles.content}>
-                    {/* <PageSetting ref={pageSettingRef} /> */}
-                    <AreaList
-                        ref={areaListRef}
-                        children={schema.children || []}
-                    />
+                    <AreaList children={schema?.children || []} />
                     <div className={styles.buttons}>
                         <Button type="primary" onClick={handleSaveBtnClick}>
                             保存区块配置
