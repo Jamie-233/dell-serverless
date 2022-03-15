@@ -1,70 +1,30 @@
-import {
-    useMemo,
-    useState,
-    useEffect,
-    createRef,
-    forwardRef,
-    useImperativeHandle
-} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'antd';
-import styles from './style.module.scss';
+import { addPageChildrenAction } from '../../store/action'
 import AreaItem from '../AreaItem';
+import styles from './style.module.scss';
 
-let refs = [];
+const AreaList = () => {
+    const dispatch = useDispatch();
+    const children = useSelector((state) => state.homeManageMent.schema?.children || []);
 
-const AreaList = (props, ref) => {
-    const [children, setChildren] = useState(props.children);
-
-    useEffect(() => {
-        setChildren(props.children);
-    }, [props.children]);
-
-    useMemo(() => {
-        refs = children.map(() => createRef());
-    }, [children]);
-
-    const addItemToChildren = () => {
-        const newChildren = [...children];
-        newChildren.push({});
-        setChildren(newChildren);
+    const addPageChildren = () => {
+        dispatch(addPageChildrenAction());
     };
-
-    const removeItemFromChildren = index => {
-        const newChildren = [...children];
-        newChildren.splice(index, 1);
-        setChildren(newChildren);
-    };
-
-    useImperativeHandle(ref, () => ({
-        getSchema: () => {
-            const schema = [];
-            children.forEach((item, index) => {
-                schema.push(refs[index].current.getSchema());
-            });
-
-            return schema;
-        }
-    }));
 
     return (
         <div>
             <ul className={styles.list}>
-                {children.map((item, index) => (
-                    <AreaItem
-                        key={index}
-                        item={item}
-                        index={index}
-                        ref={refs[index]}
-                        removeItemFromChildren={removeItemFromChildren}
-                    />
+                {children.map((_, index) => (
+                    <AreaItem key={index} index={index} />
                 ))}
             </ul>
 
-            <Button type="primary" ghost onClick={addItemToChildren}>
+            <Button type="primary" ghost onClick={addPageChildren}>
                 新增页面区块
             </Button>
         </div>
     );
 };
 
-export default forwardRef(AreaList);
+export default AreaList;

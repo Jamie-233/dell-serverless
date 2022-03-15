@@ -1,56 +1,62 @@
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Modal, Select } from 'antd';
+import { getChangePageChildAction, getDeletePageChildAction } from '../../store/action';
 import styles from './style.module.scss';
 
 const { Option } = Select;
 
-const PageSetting = (props, ref) => {
-    const { index, item, removeItemFromChildren } = props;
+const useStore = (index) => {
+    const dispatch = useDispatch();
+    const pageChild = useSelector((state) => state.homeManageMent.schema.children?.[index] || {});
 
-    const [temp, setTemp] = useState(item);
-    const [schema, setSchema] = useState(item);
+    const changePageChild = (tempPageChild) => {
+        dispatch(getChangePageChildAction(index, tempPageChild))
+    }
+
+    const removePageChild = () => {
+        dispatch(getDeletePageChildAction(index));
+    }
+
+    return {
+        pageChild,
+        removePageChild,
+        changePageChild,
+    }
+}
+
+const AreaItem = (props) => {
+    const { index } = props;
+
     const [visible, setVisible] = useState(false);
-
-    useEffect(() => {
-        setSchema(item);
-        setTemp(item);
-    }, [item]);
+    const [tempPageChild, setTempPageChild] = useState(pageChild);
+    const { pageChild, removePageChild, changePageChild } = useStore(index);
 
     const showModal = () => {
         setVisible(true);
     };
 
     const handleModalOk = () => {
-        setSchema(temp);
         setVisible(false);
+        changePageChild(tempPageChild)
     };
 
     const handleCancel = () => {
-        setTemp(schema);
+        setTempPageChild(pageChild);
         setVisible(false);
     };
 
     const handleSelectValue = value => {
-        const schema = { name: value, attributes: {}, children: [] };
-        setTemp(schema);
+        setTempPageChild({ name: value, attributes: {}, children: [] });
     };
-
-    useImperativeHandle(ref, () => ({
-        getSchema: () => schema
-    }));
 
     return (
         <li className={styles.item}>
             <span className={styles.content} onClick={showModal}>
-                {schema.name ? schema.name + '组件' : '当前区块内容为空'}
+                {pageChild.name ? pageChild.name + '组件' : '当前区块内容为空'}
             </span>
             <span className={styles.delete}>
-                <Button
-                    danger
-                    size="small"
-                    type="dashed"
-                    onClick={() => removeItemFromChildren(index)}
-                >
+                <Button danger size="small" type="dashed" onClick={removePageChild}>
                     删除
                 </Button>
             </span>
@@ -62,7 +68,7 @@ const PageSetting = (props, ref) => {
                 onCancel={handleCancel}
             >
                 <Select
-                    value={temp.name}
+                    value={tempPageChild.name}
                     onChange={handleSelectValue}
                     style={{ width: '100%' }}
                 >
@@ -75,4 +81,4 @@ const PageSetting = (props, ref) => {
     );
 };
 
-export default forwardRef(PageSetting);
+export default AreaItem;
