@@ -1,24 +1,35 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'antd';
-import { addPageChildrenAction } from '../../store/action'
+import { SortableContainer } from 'react-sortable-hoc';
+import { getAddPageChildrenAction, getChangePageChildPositionAction } from '../../store/action'
 import AreaItem from '../AreaItem';
 import styles from './style.module.scss';
+
+const SortableList = SortableContainer(({ list }) => {
+    return (
+        <ul className={styles.list}>
+            {list.map((_, index) => (
+                <AreaItem key={index} index={index} value={index} />
+            ))}
+        </ul>
+      );
+});
 
 const AreaList = () => {
     const dispatch = useDispatch();
     const children = useSelector((state) => state.homeManageMent.schema?.children || []);
 
     const addPageChildren = () => {
-        dispatch(addPageChildrenAction());
+        dispatch(getAddPageChildrenAction());
     };
+
+    const onSortEnd = ({oldIndex, newIndex}) => {
+        dispatch(getChangePageChildPositionAction(oldIndex, newIndex));
+    }
 
     return (
         <div>
-            <ul className={styles.list}>
-                {children.map((_, index) => (
-                    <AreaItem key={index} index={index} />
-                ))}
-            </ul>
+            <SortableList list={children} onSortEnd={onSortEnd} distance={5} lockAxis="y" />
 
             <Button type="primary" ghost onClick={addPageChildren}>
                 新增页面区块

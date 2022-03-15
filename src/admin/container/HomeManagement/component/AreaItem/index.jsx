@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { SortableElement } from 'react-sortable-hoc';
 import { Button, Modal, Select } from 'antd';
 import { getChangePageChildAction, getDeletePageChildAction } from '../../store/action';
 import styles from './style.module.scss';
@@ -26,7 +27,7 @@ const useStore = (index) => {
 }
 
 const AreaItem = (props) => {
-    const { index } = props;
+    const { value: index } = props;
 
     const { pageChild, removePageChild, changePageChild } = useStore(index);
     
@@ -82,4 +83,4 @@ const AreaItem = (props) => {
     );
 };
 
-export default AreaItem;
+export default SortableElement(AreaItem);
